@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  # PostgreSQL用のコンテナ
+  db:
+    # ベースとなるイメージ
+    image: postgres:12-alpine
+    # 環境変数
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    # ローカル側のポート番号:コンテナ側のポート番号
+    ports:
+      - 5432:5432
+    # ボリューム（永続的に保存したいデータ）
+    # * 保存したいディレクトリをマウントする方法
+    #   「- ローカル側の同期させたいディレクトリ:コンテナ側の同期させたいディレクトリ」
+    # * 名前付きボリュームを利用する方法
+    #   「- ボリューム名:コンテナ側の保存させたいディレクトリ」
+    #   （ボリューム名を末尾のvolumes（services等と同じ階層に定義）で指定する）
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Ruby on Rails用のコンテナ
+  api:
+    # 指定したディレクトリにあるDockerfileを使ってビルドする
+    build: ./api
+    # コンテナ起動時に実行されるコマンド
+    # （起動していた場合は停止後に）rails serverを起動する
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    # ボリューム（永続的に保存したいデータ）
+    volumes:
+      - ./api:/badranker
+    # ローカル側のポート番号:コンテナ側のポート番号
+    ports:
+      - "3000:3000"
+    # dbコンテナ起動後にwebコンテナを起動する
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+  # Nuxt.js用のコンテナ
+  web:
+    build: ./web
+    # ディレクトリの指定(cd)がNGになるので、一時コメントアウト→nuxtのイニシャライズ後にコメントアウトを削除
+    command: bash -c "cd badranker && npm run dev"
+    volumes:
+      - ./web:/var/www/html
+    # web側とポートが被るので3001に変更
+    ports:
+      - "3001:3000"
+    tty: true
+
+volumes:
+  postgres_data:
