@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="background-image">
     <Header />
     <v-main>
       <v-container class="d-flex align-center justify-center fill-height">
@@ -13,3 +13,10 @@
 
 <script setup lang="ts">
 </script>
+<style scoped>
+.background-image {
+  background-image: url('../assets/image/background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+</style>

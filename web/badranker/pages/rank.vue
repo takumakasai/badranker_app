@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto" width="" min-height="20em">
+  <v-sheet class="mx-auto semi-transparent" width="" min-height="20em">
     <h1 class="text-center">ランク画面</h1>
     <div class="text-center"><p>{{ `ログイン：${loginUser.name} (ランク：${loginUser.rank}位)`}}</p></div>
     <div class="text-center"><v-btn @click="$router.push('user_edit')">アカウント編集</v-btn></div><br>
@@ -48,5 +48,8 @@
 
 </script>
 
-<style>
+<style scoped>
+.semi-transparent {
+  background-color: rgba(255, 255, 255, 0.8); /* 白色の80%透明 */
+}
 </style>

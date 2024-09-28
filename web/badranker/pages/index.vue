@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto" width="300" min-height="20em">
+  <v-sheet class="mx-auto semi-transparent" width="300" min-height="20em">
     <v-form fast-fail @submit.prevent>
       <v-text-field v-model="userId" label="ID" />
       <v-text-field v-model="password" label="パスワード" />
@@ -39,4 +39,9 @@
 </script>
 
 <style>
+</style>
+<style scoped>
+.semi-transparent {
+  background-color: rgba(255, 255, 255, 0.8); /* 白色の80%透明 */
+}
 </style>

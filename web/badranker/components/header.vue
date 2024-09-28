@@ -4,6 +4,12 @@
       variant="text"
       @click.stop="drawer = !drawer">
     </v-app-bar-nav-icon>
+    <v-img
+      src="@/assets/image/logo3.png"
+      alt="Logo"
+      class="logo"
+      max-width="50"
+    ></v-img>
     <v-app-bar-title>
       らんきんぐ
     </v-app-bar-title>
