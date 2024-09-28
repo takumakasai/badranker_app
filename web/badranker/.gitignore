@@ -24,3 +24,5 @@ tmp/*.log
 .env
 .env.*
 !.env.example
+
+development.log
