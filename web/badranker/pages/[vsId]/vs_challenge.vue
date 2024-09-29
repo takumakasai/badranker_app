@@ -1,23 +1,21 @@
 <template>
-  <h1>挑戦画面</h1>
-  <div>
-    {{ `対戦相手：${user.payload.rank}位: ${user.payload.name} (${user.payload.email})`}}
-  </div>
-
-  <div>
-    <button @click="onStart" :disabled="status==StatusType.PLAYING">開始</button>
-  </div>
-
-  <div v-if="status==StatusType.PLAYING">
-    <button @click="onWin">勝ち</button>
-    <button @click="onLose">負け</button>
-  </div>
-
-  <br>
-  <div><button @click="$router.back()">戻る</button></div>
-  <br>
-  <p>{{user}}</p>
-
+  <v-sheet class="mx-auto semi-transparent" width="50%" min-height="20em">
+    <h1 class="text-center">挑戦画面</h1>
+    <div class="text-center">
+      <p>{{ `対戦相手：${user.payload.rank}位: ${user.payload.name} (${user.payload.email})` }}</p>
+    </div>
+    <div class="text-center">
+      <v-btn @click="onStart" :disabled="status == StatusType.PLAYING" color="primary">開始</v-btn>
+    </div>
+    <div v-if="status == StatusType.PLAYING" class="text-center mt-4">
+      <v-btn @click="onWin" color="success">勝ち</v-btn>
+      <v-btn @click="onLose" color="error" class="ml-2">負け</v-btn>
+    </div>
+    <v-divider class="my-4"></v-divider>
+    <div class="text-center">
+      <v-btn @click="$router.back()" color="secondary">戻る</v-btn>
+    </div>
+  </v-sheet>
 </template>
 
 <script setup lang="ts">

@@ -40,8 +40,3 @@
 
 <style>
 </style>
-<style scoped>
-.semi-transparent {
-  background-color: rgba(255, 255, 255, 0.8); /* 白色の80%透明 */
-}
-</style>

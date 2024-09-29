@@ -22,5 +22,9 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/vuetify.ts',
+  ],
+  css: [
+    '@/assets/style.css'
+    // '//web/badranker/assets/style.css'
   ]
 })

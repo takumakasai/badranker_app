@@ -11,7 +11,7 @@
       max-width="50"
     ></v-img>
     <v-app-bar-title>
-      らんきんぐ
+      BadRanker
     </v-app-bar-title>
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" temporary>

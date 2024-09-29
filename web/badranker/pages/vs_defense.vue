@@ -1,17 +1,24 @@
 <template>
-  <h1>防衛画面</h1>
-  <div><p>結果の承認</p></div><br>
+  <v-sheet class="mx-auto semi-transparent" width="80%" min-height="20em">
+    <h1 class="text-center">防衛画面</h1>
+    <div class="text-center"><p>結果の承認</p></div>
+    <v-divider class="my-4"></v-divider>
 
-  <div v-for="p in unapproved_list?.payload" :key="p.id">
-    <p>{{ `チャレンジャー：${p.challenger_name} vs 防衛者：${p.defender_name}`}}</p>
-    <p>{{ `結果：${p.challenger_result_status}`}}</p>
-    <p>{{ `承認：${p.defender_approval_status}`}}</p>
-    <div><button @click="approve(p.id)">承認</button></div><br>
-    <div><button @click="reject(p.id)">否認</button></div><br>
-  </div>
+    <div v-for="p in unapproved_list?.payload" :key="p.id" class="my-4">
+      <p>{{ `チャレンジャー：${p.challenger_name} vs 防衛者：${p.defender_name}` }}</p>
+      <p>{{ `結果：${p.challenger_result_status}` }}</p>
+      <p>{{ `承認：${p.defender_approval_status}` }}</p>
+      <div class="text-center">
+        <v-btn @click="approve(p.id)" color="success" class="mx-2">承認</v-btn>
+        <v-btn @click="reject(p.id)" color="error" class="mx-2">否認</v-btn>
+      </div>
+      <v-divider class="my-4"></v-divider>
+    </div>
 
-  <div><button @click="$router.back()">戻る</button></div><br>
-  <p>{{unapproved_list}}</p>
+    <div class="text-center">
+      <v-btn @click="$router.back()" color="secondary">戻る</v-btn>
+    </div>
+  </v-sheet>
 </template>
 
 <script setup lang="ts">
