@@ -18,7 +18,7 @@
     <v-list nav>
       <v-list-item prepend-icon="mdi-view-dashboard" title="Home" value="home"></v-list-item>
       <v-list-item prepend-icon="mdi-forum" title="アカウント編集" value="about"></v-list-item>
-      <v-list-item prepend-icon="mdi-forum" title="ログアウト" value="about"></v-list-item>
+      <v-list-item prepend-icon="mdi-forum" title="ログアウト" value="logout" @click="$router.push('logout')"></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>

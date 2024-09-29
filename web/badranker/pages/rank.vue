@@ -3,7 +3,7 @@
     <h1 class="text-center">ランク画面</h1>
     <div class="text-center"><p>{{ `ログイン：${loginUser.name} (ランク：${loginUser.rank}位)`}}</p></div>
     <div class="text-center"><v-btn @click="$router.push('user_edit')">アカウント編集</v-btn></div><br>
-    <div v-if="unapproved_list.payload.length" class="text-center"><v-btn @click="$router.push('vs_defense')">VS防衛</v-btn></div><br>
+    <div v-if="unapproved_list?.payload?.length" class="text-center"><v-btn @click="$router.push('vs_defense')">VS防衛</v-btn></div><br>
     <v-table>
       <thead>
         <tr>
