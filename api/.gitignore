@@ -14,6 +14,7 @@ logs
 *.log
 log/*.log
 tmp/*.log
+tmp/cache/*
 
 # Misc
 .DS_Store
