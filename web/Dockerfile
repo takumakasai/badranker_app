@@ -14,18 +14,6 @@ RUN apk add --update \
     curl
 RUN npm update -g npm
 
-# package.jsonとpackage-lock.jsonをコピー
-COPY package*.json ./
-
-# Nuxt.jsの依存関係をインストール
-RUN npm install
-
-# アプリケーションのソースコードをコピー
-COPY . .
-
 # ネットワーク設定
 EXPOSE 3000
 ENV HOST 0.0.0.0
-
-# デフォルトのコマンド
-CMD ["npm", "run", "dev"]
