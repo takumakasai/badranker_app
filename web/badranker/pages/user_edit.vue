@@ -1,6 +1,6 @@
 <template>
   <v-sheet class="mx-auto semi-transparent" width="50%" min-height="20em">
-    <h1 class="text-center">新規アカウント作成</h1>
+    <h1 class="text-center">アカウント編集</h1>
     <v-form>
       <v-row>
         <v-col cols="12" md="6">

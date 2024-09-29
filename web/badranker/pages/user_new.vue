@@ -1,16 +1,45 @@
 <template>
-  <h1>新規アカウント作成</h1>
-  <label for="name">名前</label>
-  <input type="text" v-model="form.name" placeholder="name"><br>
-
-  <label for="email">メールアドレス</label>
-  <input type="text" v-model="form.email" placeholder="email"><br>
-
-  <label for="password">パスワード</label>
-  <input type="password" v-model="form.password" placeholder="password"><br>
-  <div><button @click="create">登録</button></div>
-
-  <div><button @click="$router.back()">戻る</button></div><br>
+  <v-sheet class="mx-auto semi-transparent" width="50%" min-height="20em">
+    <h1 class="text-center">新規アカウント登録</h1>
+    <v-form>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.name"
+            label="名前"
+            placeholder="name"
+            outlined
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.email"
+            label="メールアドレス"
+            placeholder="email"
+            outlined
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.password"
+            label="パスワード"
+            placeholder="password"
+            type="password"
+            outlined
+            required
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="text-center">
+          <v-btn @click="create" color="primary">登録</v-btn>
+          <v-btn @click="$router.back()" color="secondary" class="ml-2">戻る</v-btn>
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-sheet>
 </template>
 
 <script setup lang="ts">
