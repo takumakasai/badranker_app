@@ -16,3 +16,7 @@ ADD ./api/Gemfile.lock /badranker/Gemfile.lock
 RUN bundle install
 # ローカルのファイルをコンテナに配置
 COPY . /badranker
+# ポートの指定
+EXPOSE 3000
+# アプリケーションの起動
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]
