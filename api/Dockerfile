@@ -10,8 +10,10 @@ RUN mkdir /badranker
 # 作成したディレクトリを作業用ディレクトリとして設定
 WORKDIR /badranker
 # ローカルのGemfileとGemfile.lockをコンテナに配置
-ADD Gemfile /badranker/Gemfile
-ADD Gemfile.lock /badranker/Gemfile.lock
+# ADD Gemfile /badranker/Gemfile
+# ADD Gemfile.lock /badranker/Gemfile.lock
+COPY Gemfile /badranker/Gemfile
+COPY Gemfile.lock /badranker/Gemfile.lock
 # コンテナ内にコピーしたGemfileのbundle install
 RUN bundle install
 # ローカルのファイルをコンテナに配置
