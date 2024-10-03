@@ -17,7 +17,7 @@ COPY ./web/badranker/package*.json ./
 RUN npm install
 
 # アプリケーションのソースコードをコピー
-COPY ./web .
+COPY ./web/badranker .
 
 # ネットワーク設定
 EXPOSE 3000
