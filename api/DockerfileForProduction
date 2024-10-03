@@ -18,5 +18,5 @@ RUN bundle install
 COPY . /badranker
 # ポートの指定
 EXPOSE 3000
-# アプリケーションの起動
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+# 環境変数PORTを使用してRailsサーバーを起動
+CMD ["sh", "-c", "rails server -b 0.0.0.0 -p ${PORT:-3000}"]

@@ -21,7 +21,7 @@ COPY ./web/package*.json ./
 RUN npm install
 
 # アプリケーションのソースコードをコピー
-COPY . .
+COPY ./web .
 
 # ネットワーク設定
 EXPOSE 3001
