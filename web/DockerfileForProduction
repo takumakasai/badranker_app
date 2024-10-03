@@ -18,7 +18,7 @@ COPY ./web .
 
 # 依存関係をインストール
 RUN npm i
-RUN npm i -w ./badranker
+RUN npm i --prefix ./badranker
 
 # ネットワーク設定
 EXPOSE 3000
