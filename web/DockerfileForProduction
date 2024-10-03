@@ -23,7 +23,5 @@ COPY ./web .
 EXPOSE 3000
 ENV HOST 0.0.0.0
 
-RUN npm run build
-
 # アプリケーションの起動
 CMD ["npm", "run", "start"]
