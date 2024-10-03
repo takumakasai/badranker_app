@@ -15,13 +15,13 @@ RUN apk add --update \
 RUN npm update -g npm
 
 # package.jsonとpackage-lock.jsonをコピー
-COPY ./web/package*.json ./
+ADD ./web/package*.json /var/www/html
 
 # 依存関係をインストール
 RUN npm install
 
 # アプリケーションのソースコードをコピー
-COPY ./web .
+COPY ./web /var/www/html
 
 # ネットワーク設定
 EXPOSE 3001
