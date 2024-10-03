@@ -11,7 +11,7 @@ RUN apk add --update \
 RUN npm update -g npm
 
 # package.jsonとpackage-lock.jsonをコピー
-COPY ./web/package*.json ./
+COPY ./web/badranker/package*.json ./
 
 # 依存関係をインストール
 RUN npm install
