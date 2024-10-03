@@ -21,7 +21,7 @@ RUN npm i
 RUN npm i --prefix ./badranker
 
 # ネットワーク設定
-EXPOSE 3000
+EXPOSE 10000
 ENV HOST 0.0.0.0
 
 # アプリケーションの起動
