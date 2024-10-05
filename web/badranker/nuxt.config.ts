@@ -26,5 +26,9 @@ export default defineNuxtConfig({
   css: [
     '@/assets/style.css'
     // '//web/badranker/assets/style.css'
-  ]
+  ],
+  server: {
+    port: 10000, // デフォルトのポートを設定
+    host: '0.0.0.0' // すべてのネットワークインターフェースでリッスン
+  }
 })
