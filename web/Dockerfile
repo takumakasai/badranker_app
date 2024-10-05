@@ -14,6 +14,12 @@ RUN apk add --update \
     curl
 RUN npm update -g npm
 
+# アプリケーションのソースコードをコピー
+COPY . .
+
+# 依存関係をインストール
+RUN npm ci --prefix ./badranker
+
 # ネットワーク設定
 EXPOSE 3000
 ENV HOST 0.0.0.0
