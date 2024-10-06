@@ -25,3 +25,6 @@ tmp/cache/*
 .env
 .env.*
 !.env.example
+
+# etc
+.tmp/*
