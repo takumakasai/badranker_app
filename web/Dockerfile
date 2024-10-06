@@ -17,8 +17,8 @@ RUN npm update -g npm
 # アプリケーションのソースコードをコピー
 COPY . .
 
-# 依存関係をインストール
-RUN npm ci --prefix ./badranker
+# # 依存関係をインストール
+RUN npm i --prefix ./badranker
 
 # ネットワーク設定
 EXPOSE 3000
