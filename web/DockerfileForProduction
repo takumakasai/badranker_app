@@ -17,7 +17,6 @@ RUN npm update -g npm
 COPY ./web .
 
 # 依存関係をインストール
-RUN npm i
 RUN npm i --prefix ./badranker
 
 # ネットワーク設定
