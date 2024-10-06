@@ -27,4 +27,4 @@ tmp/cache/*
 !.env.example
 
 # etc
-.tmp/*
+./tmp/pids/server.pid

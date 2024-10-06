@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  # PostgreSQL
+  db:
+    image: postgres:12-alpine
+    # 環境変数
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432 # ローカル側のポート番号:コンテナ側のポート番号
+    # ボリューム（永続的に保存したいデータ）
+    # * 保存したいディレクトリをマウントする方法
+    #   「- ローカル側の同期させたいディレクトリ:コンテナ側の同期させたいディレクトリ」
+    # * 名前付きボリュームを利用する方法
+    #   「- ボリューム名:コンテナ側の保存させたいディレクトリ」
+    #   （ボリューム名を末尾のvolumes（services等と同じ階層に定義）で指定する）
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    entrypoint: >
+      sh -c "
+      psql -U $POSTGRES_USER -d postgres -c \"
+      SELECT pg_terminate_backend(pid)
+      FROM pg_stat_activity
+      WHERE datname = 'badranker_development' AND pid <> pg_backend_pid();
+      \";
+      exec docker-entrypoint.sh postgres
+      "
+
+  # Rails(コンテナ立ち上げのみ)
+  api:
+    build: ./api
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./api:/badranker
+    ports:
+      - "3000:3000" # ローカル側のポート番号:コンテナ側のポート番号
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+  # Nuxt(コンテナ立ち上げのみ)
+  web:
+    build: ./web
+    # command: bash -c "cd badranker && npm run dev"
+    volumes:
+      - ./web:/var/www/html
+    ports:
+      - "3001:3000" # ローカル側のポート番号:コンテナ側のポート番号
+    tty: true
+
+volumes:
+  postgres_data:
