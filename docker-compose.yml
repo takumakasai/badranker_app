@@ -57,6 +57,8 @@ services:
     volumes:
       - ./web:/var/www/html
     # web側とポートが被るので3001に変更
+    env_file:
+      - ./web/env
     ports:
       - "3001:3000"
     tty: true
