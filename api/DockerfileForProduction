@@ -20,8 +20,14 @@ WORKDIR /badranker
 # ローカルのファイルをコンテナに配置
 COPY ./api /badranker
 
+# 環境変数を設定
+ENV RAILS_ENV=production
+
 # コンテナ内にコピーしたGemfileのbundle install
-RUN bundle install
+RUN bundle install --without development test
+
+# アセットのプリコンパイル
+RUN bundle exec rake assets:precompile
 
 # ポートの指定
 EXPOSE 10001
