@@ -14,17 +14,17 @@ RUN mkdir /badranker
 WORKDIR /badranker
 
 # ローカルのGemfileとGemfile.lockをコンテナに配置
-ADD ./api/Gemfile /badranker/Gemfile
-ADD ./api/Gemfile.lock /badranker/Gemfile.lock
-
-# コンテナ内にコピーしたGemfileのbundle install
-RUN bundle install
+# ADD ./api/Gemfile /badranker/Gemfile
+# ADD ./api/Gemfile.lock /badranker/Gemfile.lock
 
 # ローカルのファイルをコンテナに配置
 COPY . /badranker
 
+# コンテナ内にコピーしたGemfileのbundle install
+RUN bundle install
+
 # ポートの指定
-EXPOSE 3000
+EXPOSE 10001
 
 # 環境変数PORTを使用してRailsサーバーを起動
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000"]
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "10001"]
