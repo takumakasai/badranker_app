@@ -18,7 +18,7 @@ WORKDIR /badranker
 # ADD ./api/Gemfile.lock /badranker/Gemfile.lock
 
 # ローカルのファイルをコンテナに配置
-COPY . /badranker
+COPY ./api /badranker
 
 # コンテナ内にコピーしたGemfileのbundle install
 RUN bundle install
