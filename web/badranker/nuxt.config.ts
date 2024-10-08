@@ -22,7 +22,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public:{
-      apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:3000'
+      // FIXME: 環境変数がうまく反映されないため直接記述
+      // apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:3000'
+      apiBaseUrl: process.env.API_BASE_URL || 'https://badranker-app-api.onrender.com'
     }
   },
   plugins: [
