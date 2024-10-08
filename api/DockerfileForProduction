@@ -27,4 +27,5 @@ RUN bundle install
 EXPOSE 10001
 
 # 環境変数PORTを使用してRailsサーバーを起動
-CMD ["sh", "-c", "rm -f /badranker/tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 10001"]
+# CMD ["sh", "-c", "rm -f /badranker/tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 10001"]
+CMD ["entrypoint.sh"]

@@ -90,4 +90,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # 許可するホスト名を追加
+  config.hosts << "badranker-app-api.onrender.com"
 end
