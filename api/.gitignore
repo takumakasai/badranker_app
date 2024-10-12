@@ -28,3 +28,4 @@ tmp/cache/*
 
 # etc
 ./tmp/pids/server.pid
+.bybug_history
