@@ -16,9 +16,9 @@
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" temporary>
     <v-list nav>
-      <v-list-item prepend-icon="mdi-view-dashboard" title="Home" value="home"></v-list-item>
-      <v-list-item prepend-icon="mdi-forum" title="アカウント編集" value="about"></v-list-item>
-      <v-list-item prepend-icon="mdi-forum" title="ログアウト" value="logout" @click="$router.push('logout')"></v-list-item>
+      <v-list-item prepend-icon="mdi-view-dashboard" title="ランク" value="ランク" @click="$router.push('rank')"></v-list-item>
+      <v-list-item prepend-icon="mdi-pencil" title="アカウント編集" value="about" @click="$router.push('user_edit')"></v-list-item>
+      <v-list-item prepend-icon="mdi-logout" title="ログアウト" value="logout" @click="$router.push('logout')"></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
