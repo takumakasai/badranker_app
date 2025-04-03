@@ -1,22 +1,31 @@
 <template>
-  <v-sheet class="mx-auto semi-transparent" width="50%" min-height="20em">
-    <h1 class="text-center">新規アカウント登録</h1>
+  <v-sheet class="mx-auto semi-transparent custom-sheet" width="50%" min-height="20em">
+    <h1 class="text-center">アカウント登録</h1>
     <v-form>
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field
             v-model="form.name"
-            label="名前"
+            label="表示名"
             placeholder="name"
             outlined
             required
           ></v-text-field>
         </v-col>
-        <v-col cols="12" md="6">
+        <!-- <v-col cols="12" md="6">
           <v-text-field
             v-model="form.email"
             label="メールアドレス"
             placeholder="email"
+            outlined
+            required
+          ></v-text-field>
+        </v-col> -->
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.display_id"
+            label="ID"
+            placeholder="id"
             outlined
             required
           ></v-text-field>
@@ -50,6 +59,7 @@
     {
       name: '',
       email: '',
+      display_id: '',
       password: '',
     }
   )

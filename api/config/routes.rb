@@ -4,10 +4,9 @@ Rails.application.routes.draw do
 
   get "users/rank" => "users#rank"
   get "users/vs_challenge" => "users#vs_challenge"
+  post "users/login" => "users#login"
   patch "users/update_rank" => "users#update_rank"
-  resources :users
-  # get "users" => "users#index"
-  # get "users/:id" => "users#show"
+  resources :users, only: [:index, :create, :update, :show]
 
   post "battles/battle"
   get 'battles/index'

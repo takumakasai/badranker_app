@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     render json: { payload: user }
   end
 
+  def login
+    user = User.find_by!(display_id: params[:display_id], password: params[:password])
+    render json: { payload: user }
+  end
+
   def create
     # userの一番下のランクを取得
     last_user_rank = User.order(rank: :desc).first.rank
@@ -20,6 +25,8 @@ class UsersController < ApplicationController
       name: params[:name],
       email: params[:email],
       rank: new_rank,
+      display_id: params[:display_id],
+      password: params[:password],
       status: '1'
     )
 
@@ -32,11 +39,16 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    if user.update(
+
+    update_params = {
       name: params[:name],
       email: params[:email],
+      display_id: params[:display_id],
       status: '1'
-    )
+    }
+    update_params[:password] = params[:password] if params[:password].present?
+
+    if user.update(update_params)
       render json: { payload: user }
     else
       render json: { payload: user.errors }

@@ -10,7 +10,8 @@
         <tr>
           <th>ランク</th>
           <th>名前</th>
-          <th>ID</th>
+          <th>タイプ</th>
+          <th>ステータス</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -31,10 +32,20 @@
             </template>
           </td>
           <td>{{ user.name }}</td>
-          <td>{{ user.id }}</td>
+          <td style="text-align: center;">
+            <i class="mdi mdi-shield" style="color:black" />
+          </td>
+          <td>
+            <i class="mdi mdi-sword" style="color:black" />S
+            <i class="mdi mdi-shield" style="color:black" />A
+            <!-- <i class="mdi mdi-run-fast" style="color:black" />A -->
+            <i class="mdi mdi-shoe-sneaker" style="color:black" />A
+            <!-- <i class="mdi mdi-shoe-print" style="color:black" />A
+            <i class="mdi mdi-octagram-outline" style="color:black" />B -->
+          </td>
           <td>
             <template v-if="loginUser.rank > user.rank && !user.is_unapproved">
-              <v-btn @click="$router.push(`${user.id}/vs_challenge`)">VSチャレンジ</v-btn>
+              <v-btn @click="$router.push(`${user.id}/vs_challenge`)"><i class="mdi mdi-tennis" style="color:black" />VS</v-btn>
             </template>
           </td>
         </tr>
@@ -63,8 +74,8 @@
 </script>
 
 <style>
-.game-font {
+/* .game-font {
   font-family: 'Press Start 2P', sans-serif;
-}
+} */
 
 </style>

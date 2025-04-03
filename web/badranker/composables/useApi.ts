@@ -34,16 +34,21 @@ export const useApi = async (endpoint: string) => {
 
 // API(POST用)
 export const useApiPost = async (endpoint: string, option: any, body: any) => {
+  const data = ref()
   const $config = useRuntimeConfig()
   try {
-    await $fetch(`${$config.public.apiBaseUrl}/${endpoint}`, {
+    const response = await $fetch(`${$config.public.apiBaseUrl}/${endpoint}`, {
       method: option,
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json'
       }
     })
+    data.value = response
+
   } catch (error) {
     console.error('Error occurred:', error)
   }
+
+  return data
 }

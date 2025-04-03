@@ -2,9 +2,10 @@
 export const useLoginUser = () => useState('loginUser', () => (
   {
     id: 2,
-    name: 'ビショップ',
+    name: 'test',
     email: 'test',
     rank: 2,
-    status: 1
+    status: 1,
+    display_id: 'test',
   }
 ))

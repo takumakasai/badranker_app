@@ -30,6 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_29_072140) do
     t.string "email"
     t.integer "rank"
     t.string "status"
+    t.string "display_id"
+    t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto semi-transparent" width="50%" min-height="20em">
+  <v-sheet class="mx-auto semi-transparent custom-sheet" width="50%" min-height="20em">
     <h1 class="text-center">アカウント編集</h1>
     <v-form>
       <v-row>
@@ -12,11 +12,20 @@
             required
           ></v-text-field>
         </v-col>
-        <v-col cols="12" md="6">
+        <!-- <v-col cols="12" md="6">
           <v-text-field
             v-model="form.email"
             label="メールアドレス"
             placeholder="email"
+            outlined
+            required
+          ></v-text-field>
+        </v-col> -->
+        <v-col cols="12" md="6">
+          <v-text-field
+            v-model="form.display_id"
+            label="ID"
+            placeholder="id"
             outlined
             required
           ></v-text-field>
@@ -52,18 +61,20 @@
     {
       name: loginUser.value.name,
       email: loginUser.value.email,
+      display_id: loginUser.value.display_id,
       password: '',
     }
   )
 
   const update = async () => {
     try {
-      const res = await useApiPost(
+      await useApiPost(
         `users/${loginUser.value.id}`,
         'PATCH',
         {
           name: form.value.name,
           email: form.value.email,
+          display_id: form.value.display_id,
           password: form.value.password,
         }
       )
@@ -73,6 +84,7 @@
       console.error('Error occurred:', error)
     }
   }
+
 
 </script>
 

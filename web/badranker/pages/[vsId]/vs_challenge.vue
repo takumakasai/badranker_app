@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto semi-transparent" width="50%" min-height="20em">
+  <v-sheet class="mx-auto semi-transparent custom-sheet" width="50%" min-height="20em">
     <h1 class="text-center">挑戦画面</h1>
     <div class="text-center">
       <p>{{ `対戦相手：${user.payload.rank}位: ${user.payload.name} (${user.payload.email})` }}</p>
@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 import { RESULT_STATUS } from '~/const/enum'
-
 
   // 定数
   enum Status {

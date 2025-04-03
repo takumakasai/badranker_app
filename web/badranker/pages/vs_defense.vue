@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto semi-transparent" width="80%" min-height="20em">
+  <v-sheet class="mx-auto semi-transparent custom-sheet" width="80%" min-height="20em">
     <h1 class="text-center">防衛画面</h1>
     <div class="text-center"><p>結果の承認</p></div>
     <v-divider class="my-4"></v-divider>
