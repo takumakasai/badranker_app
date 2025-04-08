@@ -2,7 +2,7 @@
   <v-sheet class="mx-auto semi-transparent custom-sheet" width="300" min-height="20em">
     <v-form fast-fail @submit.prevent>
       <v-text-field v-model="userDisplayId" label="ID" />
-      <v-text-field v-model="password" label="パスワード" type="password"/>
+      <!-- <v-text-field v-model="password" label="パスワード" type="password"/> -->
       <v-btn class="mt-2" type="submit" block @click="login">ログイン</v-btn>
     </v-form>
     <div class="text-center mt-4">
@@ -26,7 +26,7 @@
         'POST',
         {
           display_id: userDisplayId.value,
-          password: password.value,
+          // password: password.value,
         }
       )
 

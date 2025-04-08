@@ -15,12 +15,11 @@
 
 #   t.timestamps
 
-User.create(name: "Aさん", email: "test", rank: 1, status: "1", display_id:'1111', password: "1111")
-User.create(name: "Bさん", email: "test", rank: 2, status: "1", display_id:'2222', password: "2222")
-User.create(name: "Cさん", email: "test", rank: 3, status: "1", display_id:'3333', password: "3333")
-User.create(name: "Dさん", email: "test", rank: 4, status: "1", display_id:'4444', password: "4444")
-User.create(name: "Eさん", email: "test", rank: 5, status: "1", display_id:'5555', password: "5555")
-User.create(name: "Fさん", email: "test", rank: 6, status: "1", display_id:'6666', password: "6666")
-
+User.create(name: "ブラハ", email: "test", rank: 1, status: "1", display_id: '1111', password: "1111", play_style: "receive", offense: rand(1..10), defense: rand(1..10), speed: rand(1..10), stability: rand(1..10), special_skill: "必殺技1")
+User.create(name: "ライフライン", email: "test", rank: 2, status: "1", display_id: '2222', password: "2222", play_style: "attack", offense: rand(1..10), defense: rand(1..10), speed: rand(1..10), stability: rand(1..10), special_skill: "-")
+User.create(name: "オクタン", email: "test", rank: 3, status: "1", display_id: '3333', password: "3333", play_style: "attack", offense: rand(1..10), defense: rand(1..10), speed: rand(1..10), stability: rand(1..10), special_skill: "必殺技3")
+User.create(name: "ジブラルタル", email: "test", rank: 4, status: "1", display_id: '4444', password: "4444", play_style: "balance", offense: rand(1..10), defense: rand(1..10), speed: rand(1..10), stability: rand(1..10), special_skill: "必殺技2")
+User.create(name: "よしひこ", email: "test", rank: 5, status: "1", display_id: '5555', password: "5555", play_style: "balance", offense: rand(1..10), defense: rand(1..10), speed: rand(1..10), stability: rand(1..10), special_skill: "-")
+User.create(name: "パス", email: "test", rank: 6, status: "1", display_id: '6666', password: "6666", play_style: "receive", offense: rand(1..10), defense: rand(1..10), speed: rand(1..10), stability: rand(1..10), special_skill: "-")
 
 

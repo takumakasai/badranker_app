@@ -11,7 +11,9 @@ class UsersController < ApplicationController
   end
 
   def login
-    user = User.find_by!(display_id: params[:display_id], password: params[:password])
+    # FIXME: テスト用にパスワード一時的になしに
+    # user = User.find_by!(display_id: params[:display_id], password: params[:password])
+    user = User.find_by!(display_id: params[:display_id])
     render json: { payload: user }
   end
 
@@ -20,7 +22,6 @@ class UsersController < ApplicationController
     last_user_rank = User.order(rank: :desc).first.rank
     new_rank = last_user_rank + 1
 
-    # FIXME: パスワードがない
     user = User.new(
       name: params[:name],
       email: params[:email],
@@ -63,6 +64,12 @@ class UsersController < ApplicationController
         id: user.id,
         rank: user.rank,
         name: user.name,
+        play_style: user.play_style,
+        offense: user.offense,
+        defense: user.defense,
+        speed: user.speed,
+        stability: user.stability,
+        special_skill: user.special_skill,
         is_unapproved: user.defended_battles.where(defender_approval_status: :unapproved).count > 0,
       }
     end
