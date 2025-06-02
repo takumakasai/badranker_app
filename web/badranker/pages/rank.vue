@@ -3,6 +3,7 @@
     <!-- <h1 class="text-center game-font"><i class="mdi mdi-podium" /> Rank</h1> -->
     <h1 class="text-center"><i class="mdi mdi-badminton" style="color:black" /> ランク</h1>
     <div class="text-center"><p>{{ `ログイン：${loginUser.name} (ランク：${loginUser.rank}位)`}}</p></div>
+    <div class="text-center"><v-btn @click="$router.push(`user/${loginUser.id}`)">ユーザ</v-btn></div><br>
     <div class="text-center"><v-btn @click="$router.push('user_edit')">アカウント編集</v-btn></div><br>
     <div v-if="unapproved_list?.payload?.length" class="text-center"><v-btn @click="$router.push('vs_defense')">VS防衛</v-btn></div><br>
     <table>
@@ -36,7 +37,7 @@
           <td class="tight-padding" style="width: 150px;">
             <div class="vertical-split large-text">
               <div class="upper user-name user-background">
-                {{ user.name }}
+                <NuxtLink :to="`/user/${user.id}`">{{ user.name }}</NuxtLink>
                 <span style="flex-grow: 1;"></span> <!-- 空白を埋めるための要素 -->
                 <!-- <i class="mdi mdi-shield" style="color:black" /> -->
 
@@ -56,9 +57,10 @@
                 <i class="mdi mdi-sword" style="color:black" />{{ user.offense }}
                 <i class="mdi mdi-shield" style="color:black" />{{ user.defense }}
                 <i class="mdi mdi-shoe-sneaker" style="color:black" />{{ user.speed }}
+                <i class="mdi mdi-scale-balance" style="color:black" />{{ user.stability }}
               </div>
               <div class="user-skill">
-                {{ `必殺技：${user.special_skill}` }}
+                {{ `スキル：${user.special_skill}` }}
               </div>
             </div>
           </td>

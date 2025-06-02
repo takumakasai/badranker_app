@@ -5,7 +5,7 @@
 .custom-sheet {
   border: 3px solid #ccc !important; /* 枠線 */
   border-radius: 10px !important; /* 角を丸くする */
-  padding: 20px; /* 内側の余白 */
+  padding: 5px; /* 内側の余白 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
   background-image: url('@/assets/image/background_white.jpg') !important; /* 画像のパスを指定 */
   background-size: cover !important; /* 水平方向に50px、垂直方向に20pxオフセット */

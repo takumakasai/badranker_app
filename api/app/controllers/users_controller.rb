@@ -45,7 +45,12 @@ class UsersController < ApplicationController
       name: params[:name],
       email: params[:email],
       display_id: params[:display_id],
-      status: '1'
+      play_style: params[:play_style],
+      offense: params[:offense],
+      defense: params[:defense],
+      speed: params[:speed],
+      stability: params[:stability],
+      special_skill: params[:special_skill],
     }
     update_params[:password] = params[:password] if params[:password].present?
 
