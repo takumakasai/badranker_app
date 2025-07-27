@@ -13,6 +13,8 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer  :speed
       t.integer  :stability # 安定性
       t.string :special_skill # 必殺技
+      t.text :description # ユーザーの特徴の説明
+      t.integer :role # ロール
 
       t.timestamps
     end

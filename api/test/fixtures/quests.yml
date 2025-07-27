@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quest: MyString
+  description: MyText
+  status: 1
+
+two:
+  quest: MyString
+  description: MyText
+  status: 1

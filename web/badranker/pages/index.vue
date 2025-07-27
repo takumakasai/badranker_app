@@ -37,6 +37,7 @@
       loginUser.value.rank = res.value.payload.rank
       loginUser.value.status = res.value.payload.status
       loginUser.value.display_id = res.value.payload.display_id
+      loginUser.value.role = res.value.payload.role
 
       router.push('rank')
 

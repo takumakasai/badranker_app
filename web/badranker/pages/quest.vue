@@ -1,97 +1,94 @@
 <template>
   <v-sheet class="mx-auto semi-transparent custom-sheet" width="" min-height="20em">
-    <!-- <h1 class="text-center game-font"><i class="mdi mdi-podium" /> Rank</h1> -->
-    <h1 class="text-center"><i class="mdi mdi-badminton" style="color:black" /> ランク</h1>
-    <div class="text-center"><p>{{ `ログイン：${loginUser.name} (ランク：${loginUser.rank}位)`}}</p></div>
-    <div class="text-center"><v-btn @click="$router.push(`user/${loginUser.id}`)">ユーザ</v-btn></div><br>
-    <div class="text-center"><v-btn @click="$router.push('quest')">クエスト</v-btn></div><br>
-    <!-- <template v-if="loginUser.role === 2"> -->
-      <!-- <div class="text-center"><v-btn @click="$router.push('quest_admin')">クエスト承認</v-btn></div><br> -->
-    <!-- </template> -->
-    <div class="text-center"><v-btn @click="$router.push('user_edit')">アカウント編集</v-btn></div><br>
-    <template v-if="unapproved_list?.payload?.length" >
-      <div class="text-center"><v-btn @click="$router.push('vs_defense')">VS防衛</v-btn></div><br>
-    </template>
+    <h1 class="text-center"><i class="mdi mdi-badminton" style="color:black" /> クエスト</h1>
     <table>
-      <!-- <thead>
-        <tr>
-          <th>ランク</th>
-          <th>名前</th>
-          <th>タイプ</th>
-          <th>ステータス</th>
-          <th>操作</th>
-        </tr>
-      </thead> -->
       <tbody>
-        <tr v-for="user in users.value?.payload" :key="user.id" class="card-background">
+        <!-- クエスト -->
+        <tr v-for="quest in quests.value?.payload" :key="quest.id" class="card-background">
           <td class="text-center tight-padding rank-cell">
-            <template v-if="user.rank == 1">
-              <v-img src="@/assets/image/crown_first.png" alt="crown_first" class="crown_first" />
-            </template>
-            <template v-else-if="user.rank == 2">
-              <v-img src="@/assets/image/crown_second.png" alt="crown_second" class="crown_second" />
-            </template>
-            <template v-else-if="user.rank == 3">
-              <v-img src="@/assets/image/crown_third.png" alt="crown_third" class="crown_third" />
+            <!-- <template v-if="quest.rank == 1">
+              <v-img src="@/assets/image/icon_sword.png" alt="crown_first" class="crown_first" />
             </template>
             <template v-else>
               <div>
-                {{ user.rank }}
+                {{ quest.rank }}
               </div>
-            </template>
+            </template> -->
           </td>
           <td class="tight-padding" style="width: 150px;">
             <div class="vertical-split large-text">
               <div class="upper user-name user-background">
-                <NuxtLink :to="`/user/${user.id}`">{{ user.name }}</NuxtLink>
+                <!-- TODO:APIから取得 -->
+                <p>{{ quest.name }}</p>
                 <span style="flex-grow: 1;"></span> <!-- 空白を埋めるための要素 -->
-                <!-- <i class="mdi mdi-shield" style="color:black" /> -->
-
-                <!-- FIXME: TEST用 -->
-                <template v-if="user.play_style == 'attack'">
+                <!-- <template v-if="quest.play_style == 'attack'">
                   <img src="@/assets/image/icon_sword.png" alt="sword" class="icon-image" />
                 </template>
-                <template v-else-if="user.play_style == 'receive'">
+                <template v-else-if="quest.play_style == 'receive'">
                   <img src="@/assets/image/icon_shield.png" alt="shield" class="icon-image" />
                 </template>
-                <template v-else-if="user.play_style == 'balance'">
+                <template v-else-if="quest.play_style == 'balance'">
                   <img src="@/assets/image/icon_balance3.png" alt="balance" class="icon-image" />
-                </template>
+                </template> -->
 
               </div>
               <div class="lower user-status">
-                <i class="mdi mdi-sword" style="color:black" />{{ user.offense }}
-                <i class="mdi mdi-shield" style="color:black" />{{ user.defense }}
-                <i class="mdi mdi-shoe-sneaker" style="color:black" />{{ user.speed }}
-                <i class="mdi mdi-scale-balance" style="color:black" />{{ user.stability }}
-              </div>
-              <div class="user-skill">
-                {{ `スキル：${user.special_skill}` }}
+                <!-- TODO:APIから取得 -->
+                <p>{{ quest.description }}</p>
               </div>
             </div>
           </td>
           <td class="text-center tight-padding">
-            <template v-if="loginUser.rank > user.rank && !user.is_unapproved">
-              <v-btn @click="$router.push(`${user.id}/vs_challenge`)" size="small"><i class="mdi mdi-tennis" style="color:black" />VS</v-btn>
+            <template v-if="quest.status === 0">
+              <v-btn @click="challengeQuest(quest.id)" size="small"><i class="mdi mdi-tennis" style="color:black" />チャレンジ</v-btn>
             </template>
+            <template v-if="quest.status === 1">
+              <div class="quest-achieved" size="small">
+                <i class="mdi mdi-tennis" style="color:black" />チャレンジ中
+              </div>
+            </template>
+            <template v-if="quest.status === 2">
+              <div class="quest-achieved" size="small">
+                <i class="mdi mdi-tennis" style="color:black" />達成！
+              </div>
+            </template>
+
           </td>
         </tr>
       </tbody>
     </table>
-    <!-- ログイン情報: {{ loginUser }} -->
-
-    <div class="text-center"><v-btn @click="$router.push('logout')">ログアウト</v-btn></div><br>
+    <div class="text-center">
+      <v-btn @click="$router.back()" color="secondary" class="ml-2">戻る</v-btn>
+    </div>
   </v-sheet>
 </template>
 
 <script setup lang="ts">
   const loginUser = useLoginUser()
 
-  // API実行(防衛の有無を取得)
-  const unapproved_list = await useApi(`battles/unapproved_list?self_id=${loginUser.value.id}`)
-
   // API実行(ランク情報取得)
-  const users = await useApiIndex('users/rank')
+  const quests = await useApiIndex(`quests/index_for_user/${loginUser.value.id}`)
+
+  const challengeQuest = async (questId: number) => {
+    if (!confirm('このクエストにチャレンジしますか？')) {
+      return
+    }
+    try {
+      
+      const res = await useApiPost(
+        'quests/challenge',
+        'PUT',
+        {
+          user_id: loginUser.value.id,
+          quest_id: questId,
+        }
+      )
+      alert('チャレンジを開始しました。')
+
+    } catch (error) {
+      console.error('Error occurred:', error)
+    }
+  }
 
   // メモ：useAsycnDataは、urlを実行するわけではない。$fetchがurlを実行する関数。
   // useAsyncDataと$fetchは合わせて使う必要がある
@@ -201,5 +198,18 @@
   width: 15px; /* 必要に応じてアイコンの幅を調整 */
   height: 15px; /* 必要に応じてアイコンの高さを調整 */
   object-fit: contain; /* 画像の比率を維持 */
+}
+
+.quest-achieved {
+  background: linear-gradient(90deg, #e0ffe0 60%, #b2f7b2 100%);
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  padding: 4px 12px;
+  color: #2e7d32;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
 }
 </style>

@@ -15,4 +15,10 @@ Rails.application.routes.draw do
   patch 'battles/approve'
   patch 'battles/reject'
 
+  get "quests" => "quests#index"
+  get "quests/index_for_user/:user_id" => "quests#index_for_user"
+  put "quests/challenge" => "quests#challenge"
+  patch "quests/cancel" => "quests#cancel"
+  patch "quests/complete" => "quests#complete"
+
 end

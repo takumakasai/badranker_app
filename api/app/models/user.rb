@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :challenged_battles, foreign_key: :challenger_id, class_name: 'Battle'
   has_many :defended_battles, foreign_key: :defender_id, class_name: 'Battle'
+  has_many :user_quests
+  has_many :quests, through: :user_quests
 
   # ランクアップ処理
   def self.update_rank_up(winner_id, loser_id)

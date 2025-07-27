@@ -7,5 +7,6 @@ export const useLoginUser = () => useState('loginUser', () => (
     rank: 2,
     status: 1,
     display_id: 'test',
+    role: 1,
   }
 ))

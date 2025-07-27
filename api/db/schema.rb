@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_29_072140) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_27_050111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_29_072140) do
     t.datetime "updated_at", null: false
     t.index ["challenger_id"], name: "index_battles_on_challenger_id"
     t.index ["defender_id"], name: "index_battles_on_defender_id"
+  end
+
+  create_table "quests", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_quests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "quest_id", null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id"], name: "index_user_quests_on_quest_id"
+    t.index ["user_id"], name: "index_user_quests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,10 +55,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_29_072140) do
     t.integer "speed"
     t.integer "stability"
     t.string "special_skill"
+    t.text "description"
+    t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_foreign_key "battles", "users", column: "challenger_id"
   add_foreign_key "battles", "users", column: "defender_id"
+  add_foreign_key "user_quests", "quests"
+  add_foreign_key "user_quests", "users"
 end
