@@ -5,9 +5,9 @@
     <div class="text-center"><p>{{ `ログイン：${loginUser.name} (ランク：${loginUser.rank}位)`}}</p></div>
     <div class="text-center"><v-btn @click="$router.push(`user/${loginUser.id}`)">ユーザ</v-btn></div><br>
     <div class="text-center"><v-btn @click="$router.push('quest')">クエスト</v-btn></div><br>
-    <!-- <template v-if="loginUser.role === 2"> -->
-      <!-- <div class="text-center"><v-btn @click="$router.push('quest_admin')">クエスト承認</v-btn></div><br> -->
-    <!-- </template> -->
+    <template v-if="loginUser.role === 2">
+      <div class="text-center"><v-btn @click="$router.push('admin_quest')">クエスト承認</v-btn></div><br>
+    </template>
     <div class="text-center"><v-btn @click="$router.push('user_edit')">アカウント編集</v-btn></div><br>
     <template v-if="unapproved_list?.payload?.length" >
       <div class="text-center"><v-btn @click="$router.push('vs_defense')">VS防衛</v-btn></div><br>

@@ -48,7 +48,7 @@
               </div>
             </template>
             <template v-if="quest.status === 2">
-              <div class="quest-achieved" size="small">
+              <div class="quest-completed" size="small">
                 <i class="mdi mdi-tennis" style="color:black" />達成！
               </div>
             </template>
@@ -66,15 +66,20 @@
 <script setup lang="ts">
   const loginUser = useLoginUser()
 
-  // API実行(ランク情報取得)
-  const quests = await useApiIndex(`quests/index_for_user/${loginUser.value.id}`)
+  const quests = ref<any>(null)
+
+  const fetchQuests = async () => {
+    quests.value = await useApiIndex(`quests/index_for_user/${loginUser.value.id}`)
+  }
+
+  // 初回取得
+  await fetchQuests()
 
   const challengeQuest = async (questId: number) => {
     if (!confirm('このクエストにチャレンジしますか？')) {
       return
     }
     try {
-      
       const res = await useApiPost(
         'quests/challenge',
         'PUT',
@@ -84,7 +89,7 @@
         }
       )
       alert('チャレンジを開始しました。')
-
+    await fetchQuests() // ← ここで再取得
     } catch (error) {
       console.error('Error occurred:', error)
     }
@@ -200,7 +205,7 @@
   object-fit: contain; /* 画像の比率を維持 */
 }
 
-.quest-achieved {
+.quest-completed {
   background: linear-gradient(90deg, #e0ffe0 60%, #b2f7b2 100%);
   border: 2px solid #4caf50;
   border-radius: 8px;
@@ -211,5 +216,20 @@
   align-items: center;
   gap: 4px;
   box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
+  font-size: 0.8rem; /* 文字サイズ */
+}
+
+.quest-achieved {
+  background: linear-gradient(90deg, #fff9c4 60%, #ffe082 100%);
+  border: 2px solid #ffd600;
+  border-radius: 8px;
+  padding: 4px 12px;
+  color: #bfa100;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
+  font-size: 0.8rem; /* 文字サイズ */
 }
 </style>

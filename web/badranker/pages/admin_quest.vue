@@ -3,53 +3,35 @@
     <h1 class="text-center"><i class="mdi mdi-badminton" style="color:black" /> クエスト承認(管理者)</h1>
     <table>
       <tbody>
-        <!-- クエスト -->
-        <tr v-for="quest in quests.value?.payload" :key="quest.id" class="card-background">
+        <tr v-for="userQuest in userQuests.value?.payload" :key="userQuest.id" class="card-background">
           <td class="text-center tight-padding rank-cell">
-            <!-- <template v-if="quest.rank == 1">
-              <v-img src="@/assets/image/icon_sword.png" alt="crown_first" class="crown_first" />
-            </template>
-            <template v-else>
-              <div>
-                {{ quest.rank }}
-              </div>
-            </template> -->
           </td>
           <td class="tight-padding" style="width: 150px;">
+            <div class="user-label">{{ userQuest.user_name }}</div>
             <div class="vertical-split large-text">
               <div class="upper user-name user-background">
-                <!-- TODO:APIから取得 -->
-                <p>{{ quest.name }}</p>
+                <p>{{ userQuest.quest_name }}</p>
                 <span style="flex-grow: 1;"></span> <!-- 空白を埋めるための要素 -->
-                <!-- <template v-if="quest.play_style == 'attack'">
-                  <img src="@/assets/image/icon_sword.png" alt="sword" class="icon-image" />
-                </template>
-                <template v-else-if="quest.play_style == 'receive'">
-                  <img src="@/assets/image/icon_shield.png" alt="shield" class="icon-image" />
-                </template>
-                <template v-else-if="quest.play_style == 'balance'">
-                  <img src="@/assets/image/icon_balance3.png" alt="balance" class="icon-image" />
-                </template> -->
-
               </div>
               <div class="lower user-status">
-                <!-- TODO:APIから取得 -->
-                <p>{{ quest.description }}</p>
+                <p>{{ userQuest.quest_description }}</p>
               </div>
             </div>
           </td>
           <td class="text-center tight-padding">
-            <template v-if="quest.status === 0">
-              <v-btn @click="challengeQuest(quest.id)" size="small"><i class="mdi mdi-tennis" style="color:black" />チャレンジ</v-btn>
+            <template v-if="userQuest.status === 1">
+              <v-btn @click="approveQuest(userQuest.id)" size="small" color="success">
+                <!-- <i class="mdi mdi-tennis" style="color:black" /> -->
+                承認
+              </v-btn>
+              <v-btn @click="denyQuest(userQuest.id)" size="small" color="warning" class="ml-2">
+                <!-- <i class="mdi mdi-tennis" style="color:black" /> -->
+                否認
+              </v-btn>
             </template>
-            <template v-if="quest.status === 1">
+            <template v-if="userQuest.status === 2">
               <div class="quest-achieved" size="small">
-                <i class="mdi mdi-tennis" style="color:black" />チャレンジ中
-              </div>
-            </template>
-            <template v-if="quest.status === 2">
-              <div class="quest-achieved" size="small">
-                <i class="mdi mdi-tennis" style="color:black" />達成！
+                <i class="mdi mdi-tennis" style="color:black" />承認済
               </div>
             </template>
 
@@ -64,26 +46,51 @@
 </template>
 
 <script setup lang="ts">
-  const loginUser = useLoginUser()
+  const userQuests = ref<any>(null)
 
-  // API実行(ランク情報取得)
-  const quests = await useApiIndex(`quests/index_for_user/${loginUser.value.id}`)
+  const fetchUserQuests = async () => {
+    userQuests.value = await useApiIndex(`quests/index_for_request`)
+  }
 
-  const challengeQuest = async (questId: number) => {
-    if (!confirm('このクエストにチャレンジしますか？')) {
+  // 初回取得
+  await fetchUserQuests()
+
+  const approveQuest = async (id: number) => {
+    if (!confirm('承認しますか？')) {
       return
     }
+
     try {
-      
       const res = await useApiPost(
-        'quests/challenge',
-        'PUT',
+        'quests/approve',
+        'PATCH',
         {
-          user_id: loginUser.value.id,
-          quest_id: questId,
+          id: id,
         }
       )
-      alert('チャレンジを開始しました。')
+      alert('承認しました。')
+      await fetchUserQuests() // 承認後に再取得
+
+    } catch (error) {
+      console.error('Error occurred:', error)
+    }
+  }
+
+  const denyQuest = async (id: number) => {
+    if (!confirm('否認しますか？')) {
+      return
+    }
+
+    try {
+      const res = await useApiPost(
+        'quests/deny',
+        'PATCH',
+        {
+          id: id,
+        }
+      )
+      alert('否認しました。')
+      await fetchUserQuests() // 否認後に再取得
 
     } catch (error) {
       console.error('Error occurred:', error)
@@ -211,5 +218,16 @@
   align-items: center;
   gap: 4px;
   box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+.user-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #3b3b3b;
+  margin-bottom: 2px;
 }
 </style>

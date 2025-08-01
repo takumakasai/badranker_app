@@ -17,8 +17,12 @@ Rails.application.routes.draw do
 
   get "quests" => "quests#index"
   get "quests/index_for_user/:user_id" => "quests#index_for_user"
+  get "quests/index_for_request" => "quests#index_for_request"
   put "quests/challenge" => "quests#challenge"
   patch "quests/cancel" => "quests#cancel"
-  patch "quests/complete" => "quests#complete"
+  # patch "quests/complete" => "quests#complete"
+  patch "quests/approve" => "quests#approve"
+  patch "quests/deny" => "quests#deny"
+
 
 end
