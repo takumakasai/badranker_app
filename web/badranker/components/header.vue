@@ -22,7 +22,7 @@
         <v-list-item prepend-icon="mdi-package-check" title="クエスト承認" value="admin_quest" @click="$router.push('admin_quest')"></v-list-item>
       </template>
       <v-list-item prepend-icon="mdi-pencil" title="アカウント編集" value="user_edit" @click="$router.push('user_edit')"></v-list-item>
-      <v-list-item prepend-icon="mdi-logout" title="ログアウト" value="logout" @click="$router.push('logout')"></v-list-item>
+      <v-list-item prepend-icon="mdi-logout" title="ログアウト" value="logout" @click="logout"></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -31,6 +31,14 @@
 import { ref } from 'vue'
 
 const loginUser = useLoginUser()
+const router = useRouter()
 
 const drawer = ref(false)
+
+const logout = () => {
+  if (confirm('ログアウトしますか？')) {
+    alert('ログアウトしました。')
+    router.push('/')
+  }
+}
 </script>

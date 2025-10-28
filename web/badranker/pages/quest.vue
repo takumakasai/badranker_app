@@ -6,14 +6,8 @@
         <!-- クエスト -->
         <tr v-for="quest in quests.value?.payload" :key="quest.id" class="card-background">
           <td class="text-center tight-padding rank-cell">
-            <!-- <template v-if="quest.rank == 1">
-              <v-img src="@/assets/image/icon_sword.png" alt="crown_first" class="crown_first" />
-            </template>
-            <template v-else>
-              <div>
-                {{ quest.rank }}
-              </div>
-            </template> -->
+            <!-- <v-img :src="`@/assets/image/${quest.badge_icon_path}`" alt="badge" class="badge" /> -->
+            <v-img :src="`/badges/${quest.badge_icon_path}`" alt="badge" class="badge" />
           </td>
           <td class="tight-padding" style="width: 150px;">
             <div class="vertical-split large-text">

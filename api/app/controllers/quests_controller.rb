@@ -12,6 +12,7 @@ class QuestsController < ApplicationController
         id: quest.id,
         name: quest.name,
         description: quest.description,
+        badge_icon_path: quest.badge_icon_path,
         status: UserQuest.find_by(quest_id: quest.id, user_id: params[:user_id])&.status || 0,
       }
     end
@@ -24,7 +25,7 @@ class QuestsController < ApplicationController
     quest_id = params[:quest_id]
     user_quest = UserQuest.find_or_initialize_by(user_id: user_id, quest_id: quest_id)
 
-    user_quest.status = 1 # チャレンジ中のステータスを設定
+    user_quest.status = :in_progress # チャレンジ中のステータスを設定
     if user_quest.save
       render json: { message: 'チャレンジを開始しました。' }, status: :ok
     else
@@ -37,7 +38,7 @@ class QuestsController < ApplicationController
     quest_id = params[:quest_id]
     user_quest = UserQuest.find_by(user_id: user_id, quest_id: quest_id)
 
-    user_quest.status = 0 # 未開始のステータスに戻す
+    user_quest.status = :standby # 未開始のステータスに戻す
     if user_quest.save
       render json: { message: 'チャレンジをキャンセルしました。' }, status: :ok
     else
@@ -50,7 +51,7 @@ class QuestsController < ApplicationController
   #   quest_id = params[:quest_id]
   #   user_quest = UserQuest.find_by(user_id: user_id, quest_id: quest_id)
 
-  #   user_quest.status = 2 # 達成のステータスに更新
+  #   user_quest.status = :completed # 達成のステータスに更新
   #   if user_quest.save
   #     render json: { message: 'クエストを達成しました。' }, status: :ok
   #   else
@@ -60,7 +61,7 @@ class QuestsController < ApplicationController
 
   # 申請中のクエスト一覧を取得
   def index_for_request
-    user_quests = UserQuest.where(status: 1)
+    user_quests = UserQuest.where(status: :in_progress)
 
     json = user_quests.map do |user_quest|
       {
@@ -78,7 +79,7 @@ class QuestsController < ApplicationController
   def approve
     user_quest = UserQuest.find_by(id: params[:id])
 
-    user_quest.status = 2 # 達成のステータスに更新
+    user_quest.status = :completed # 達成のステータスに更新
     if user_quest.save
       render json: { message: '承認しました。' }, status: :ok
     else
@@ -89,7 +90,7 @@ class QuestsController < ApplicationController
   def deny
     user_quest = UserQuest.find_by(id: params[:id])
 
-    user_quest.status = 0 # 未開始のステータスに戻す
+    user_quest.status = :standby # 未開始のステータスに戻す
     if user_quest.save
       render json: { message: '否認しました。' }, status: :ok
     else

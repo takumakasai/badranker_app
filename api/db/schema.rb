@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_050111) do
   create_table "quests", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.string "badge_icon_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

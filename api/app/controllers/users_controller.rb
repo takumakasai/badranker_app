@@ -7,7 +7,39 @@ class UsersController < ApplicationController
 
   def show
     user = User.find(params[:id])
-    render json: { payload: user }
+    quests = Quest.all
+
+    quest_statuses = quests.map do |quest|
+      user_quest = user.user_quests.find_by(quest_id: quest.id)
+      {
+        id: quest.id,
+        name: quest.name,
+        description: quest.description,
+        badge_icon_path: quest.badge_icon_path,
+        acquired: user_quest&.status == :completed # 2:クリア済み
+      }
+    end
+
+    render json: {
+      payload: {
+        user: user,
+        quests: quest_statuses
+      }
+    }
+
+    # render json: {
+    #   payload: user.as_json(
+    #     only: [:id, :name, :email, :rank, :play_style, :offense, :defense, :speed, :stability, :special_skill, :description],
+    #     include: {
+    #       user_quests: {
+    #         only: [:id, :quest_id, :status],
+    #         include: {
+    #           quest: { only: [:id, :name, :description, :badge_icon_path] }
+    #         }
+    #       }
+    #     }
+    #   )
+    # }
   end
 
   def login

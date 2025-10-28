@@ -76,23 +76,30 @@
     </table>
     <!-- ログイン情報: {{ loginUser }} -->
 
-    <div class="text-center"><v-btn @click="$router.push('logout')">ログアウト</v-btn></div><br>
+    <div class="text-center"><v-btn @click="logout">ログアウト</v-btn></div><br>
   </v-sheet>
 </template>
 
 <script setup lang="ts">
-  const loginUser = useLoginUser()
+const loginUser = useLoginUser()
+const router = useRouter()
 
-  // API実行(防衛の有無を取得)
-  const unapproved_list = await useApi(`battles/unapproved_list?self_id=${loginUser.value.id}`)
+// API実行(防衛の有無を取得)
+const unapproved_list = await useApi(`battles/unapproved_list?self_id=${loginUser.value.id}`)
 
-  // API実行(ランク情報取得)
-  const users = await useApiIndex('users/rank')
+// API実行(ランク情報取得)
+const users = await useApiIndex('users/rank')
 
-  // メモ：useAsycnDataは、urlを実行するわけではない。$fetchがurlを実行する関数。
-  // useAsyncDataと$fetchは合わせて使う必要がある
-  // useFetchはそれらをまとめたもの。返り値はリアクティブ変数となる。
+// メモ：useAsycnDataは、urlを実行するわけではない。$fetchがurlを実行する関数。
+// useAsyncDataと$fetchは合わせて使う必要がある
+// useFetchはそれらをまとめたもの。返り値はリアクティブ変数となる。
 
+const logout = () => {
+  if (confirm('ログアウトしますか？')) {
+    alert('ログアウトしました。')
+    router.push('/')
+  }
+}
 
 </script>
 
